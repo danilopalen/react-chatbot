@@ -19,14 +19,11 @@ function App() {
 
   return (
       <div className="App">
-        {flow.map(res => <Response res = {res} key = {res.id}/>)}
+        {flow.map(res => <Response res = {res}/>)}
         <br></br>
         <Input newMessage = {newMessage => setFlow(prev => [...prev, newMessage])}
         newOptions = {newOptions => setFlow(prev => [...prev, newOptions])}/>
         <br></br>
-        <DetailForm />
-        <h2>List of saved email from Database</h2>
-        {details.map(details => <DetailList list = {details} key = {details.id}/>)}    
       </div>
   );
 }

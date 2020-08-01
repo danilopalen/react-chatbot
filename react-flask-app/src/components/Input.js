@@ -15,6 +15,7 @@ class  Input extends React.Component {
     submit(){
         const url = "/input";
         let data = this.state;
+
         fetch(url, {
             method: 'POST',
             headers: {
@@ -25,11 +26,13 @@ class  Input extends React.Component {
         }).then((result) => {
             result.json().then((resp) => {
                 console.warn("resp", resp)
-                this.props.newMessage(resp.response)
-                if ( resp.output.output.generic.length == 2){
+                let msg = { 'message': resp.response}
+                this.props.newMessage(msg)
+                if ( resp.output.output.generic.length === 2){
                     resp.output.output.generic[1].options.map(d => {
                         console.log(d);
-                        this.props.newOptions(d.label);
+                        let opt = { 'options' : d.label}
+                        return this.props.newOptions(opt);
                     })
                 }else{
                     this.props.newOptions(' ');
