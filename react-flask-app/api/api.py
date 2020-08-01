@@ -50,9 +50,9 @@ def input():
     from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 
     # my bot
-    my_apikey = 'YOL8n5EcRf2D1b8YrkT6ATix7o5TdcwNso5wYtXY2wIi'
-    my_aid = '9097fa59-e0fa-4bad-b0e6-195f76bae232'
-    my_url = 'https://api.au-syd.assistant.watson.cloud.ibm.com/instances/5acee416-015c-42ea-9ba1-e8549214ef5c'
+    my_apikey = 'vZV1hfwjrjTXP9t4DFMCuJIJlR8tEZNY_LHdvI_NvgCY'
+    my_aid = 'd1acd50b-5d98-44bb-92b4-0e44f7a47d80'
+    my_url = 'https://api.au-syd.assistant.watson.cloud.ibm.com/instances/80e8f805-c2c2-4ed2-9915-03561beda06c'
 
     authenticator = IAMAuthenticator(my_apikey)
     assistant = AssistantV2(
@@ -69,12 +69,21 @@ def input():
     if request.method == 'POST':
         details_data = request.get_json()
         user_input = details_data['text']
+
+        with open("session.txt") as file: 
+            sessionChat = file.read()
+
     else:
         user_input = ''
 
+        with open('session.txt', 'w') as file:
+            file.write(session['session_id'])
+
+        sessionChat = session['session_id']
+
     response = assistant.message(
         assistant_id = my_aid,
-        session_id = session['session_id'], 
+        session_id = sessionChat, 
         input={
             'message_type': 'text',
             'text': user_input            
