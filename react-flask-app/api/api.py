@@ -42,7 +42,7 @@ def add_details():
 
     return 'Done', 201
 #----------------------------------------------POST INPUT TO CHATBOT API------------------------------------------------------
-@app.route('/input', methods = ['GET','POST'])
+@app.route('/input', methods = ['POST'])
 def input():
     import collections
     import json
@@ -60,41 +60,47 @@ def input():
         authenticator=authenticator
     )
 
-    assistant.set_service_url(my_url)
-
-    session = assistant.create_session(
-        assistant_id = my_aid
-    ).get_result()
+    assistant.set_service_url(my_url)   
 
     if request.method == 'POST':
         details_data = request.get_json()
         user_input = details_data['text']
+        
+        if user_input == '':
+            session = assistant.create_session(
+                assistant_id = my_aid
+            ).get_result()
 
-        with open("session.txt") as file: 
-            sessionChat = file.read()
+            with open('session.txt', 'w') as file:
+                file.write(session['session_id'])
 
-    else:
-        user_input = ''
+            response = assistant.message(
+                assistant_id = my_aid,
+                session_id = session['session_id'], 
+                input={
+                    'message_type': 'text',
+                    'text': user_input            
+                }
+            ).get_result()
 
-        with open('session.txt', 'w') as file:
-            file.write(session['session_id'])
+        else:
+            with open("session.txt") as file: 
+                sessionChat = file.read()
 
-        sessionChat = session['session_id']
-
-    response = assistant.message(
-        assistant_id = my_aid,
-        session_id = sessionChat, 
-        input={
-            'message_type': 'text',
-            'text': user_input            
-        }
-    ).get_result()
+            response = assistant.message(
+                    assistant_id = my_aid,
+                    session_id = sessionChat, 
+                    input={
+                        'message_type': 'text',
+                        'text': user_input,        
+                    }
+            ).get_result()
 
     print(json.dumps(response, indent=2))
 
     return jsonify({
         'response' : response['output']['generic'][0]['text'],
-        'output' : response
+        'output' : response,
     })
 
 # ===============================================GET DATA FROM DATABASE========================================================
