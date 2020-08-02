@@ -4,7 +4,7 @@ import DetailList from './components/DetailList.js';
 import DetailForm from './components/DetailForm.js';
 import Input from './components/Input.js';
 import Response from './components/Response.js';
-
+import Loader from './components/Loader.js';
 
 function App() {
 
@@ -16,14 +16,14 @@ function App() {
       setDetails(data.details);
     });
   }, []);  
-
+  
   return (
-      <div className="App">
-        {flow.map(res => <Response res = {res}/>)}
-        <br></br>
-        <Input newMessage = {newMessage => setFlow(prev => [...prev, newMessage])}
-        newOptions = {newOptions => setFlow(prev => [...prev, newOptions])}/>
-        <br></br>
+      <div className = "container">
+        <div className="App">
+          <Loader flow = {flow} setFlow = {setFlow}/>
+        </div>
+          <Input newMessage = {newMessage => setFlow(prev => [...prev, newMessage])}
+          newOptions = {newOptions => setFlow(prev => [...prev, newOptions])}/>
       </div>
   );
 }

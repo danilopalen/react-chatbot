@@ -1,10 +1,11 @@
 import React from 'react'
+import '.././App.css';
 
 class  Input extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            text: ''  
+            text: '' 
         }
     }
     componentDidMount(){
@@ -33,10 +34,7 @@ class  Input extends React.Component {
                         let opt = { 'options' : d.label}
                         return this.props.newOptions(opt);
                     })
-                }else{
-                    this.props.newOptions(' ');
                 }
-                
             })
         })
         this.setState({
@@ -45,10 +43,14 @@ class  Input extends React.Component {
     }
     render() { 
         return ( 
-            <div>
-                <input type = 'text' value = {this.state.text} name = 'text' placeholder = 'Enter message'
+            <div className = 'input-group mb-3 container' style = {{position: 'absolute',
+            bottom: '10%'}}>
+                <input className = 'form-control' type = 'text' value = {this.state.text} name = 'text' placeholder = 'Enter message'
                 onChange = {e => this.setState({text : e.target.value})}></input><br/>
-                <button onClick = {() => {this.submit()}}>Submit</button>
+                
+                <div class="input-group-append">
+                    <span class="input-group-text" onClick = {() => {this.submit()}}>Send</span>
+                </div>
             </div>
          );
     }
