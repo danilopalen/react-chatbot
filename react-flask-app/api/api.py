@@ -16,15 +16,15 @@ def quoteCalculator(userYearDOB,carYear,carForBusiness,parkPlaceCorr,damage5year
         quote=quote*1.1
     if carYear>2018:
         quote=quote*1.1
-    if carForBusiness=="True":
+    if carForBusiness==1:
         quote=quote*1.2
     if parkPlaceCorr=="Street":
         quote=quote*1.15
     if parkPlaceCorr=="Driveway":
         quote=quote*1.1
-    if damage5years=="Yes":
+    if damage5years==1:
         quote=quote*1.3  
-    if inclMBI=="True":
+    if inclMBI==1:
         quote=quote*1.3  
     if nMonth=6:
         quote=quote*1.1/2
