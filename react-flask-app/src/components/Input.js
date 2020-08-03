@@ -23,7 +23,7 @@ class  Input extends React.Component {
                 ></input><br/>
                 
                 <div class="input-group-append">
-                    <span class="input-group-text" onClick = {() => {this.props.submit(this.state.text)}}>Send</span>
+                    <button class="input-group-text" disabled = {this.props.hasOption} onClick = {() => {this.props.submit(this.state.text)}}>Send</button>
                 </div>
             </div>
         );
