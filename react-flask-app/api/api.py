@@ -5,6 +5,35 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
+
+def quoteCalculator(userYearDOB,carYear,carForBusiness,parkPlaceCorr,damage5years,MBI,nMonth=12):
+    quote=473.99
+    if userYearDOB>1990:
+        quote=quote*1.1
+    if userYearDOB>2000:
+        quote=quote*1.1
+    if carYear>2015:
+        quote=quote*1.1
+    if carYear>2018:
+        quote=quote*1.1
+    if carForBusiness=="True":
+        quote=quote*1.2
+    if parkPlaceCorr=="Street":
+        quote=quote*1.15
+    if parkPlaceCorr=="Driveway":
+        quote=quote*1.1
+    if damage5years=="Yes":
+        quote=quote*1.3  
+    if MBI=="True":
+        quote=quote*1.3  
+    if nMonth=6:
+        quote=quote*1.1/2
+    if nMonth=4:
+        quote=quote*1.15/3
+    if nMonth=1:
+        quote=quote*1.2/12
+        
+    return quote, nMonth
 # =======================================================DB MODELS===========================================================
 class Details(db.Model):
     id = db.Column(db.Integer, primary_key = True)
