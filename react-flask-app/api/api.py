@@ -7,21 +7,21 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 
 def quoteCalculator(userYearDOB,carYear,carForBusiness,parkPlaceCorr,damage5years,inclMBI,nMonth=12):
-    quote=473.99
+    quote=443.99
     if userYearDOB>1990:
-        quote=quote*1.08
+        quote=quote*1.07
     if userYearDOB>2000:
         quote=quote*1.08
     if carYear>2015:
-        quote=quote*1.08
+        quote=quote*1.07
     if carYear>2018:
         quote=quote*1.08
     if carForBusiness==1:
         quote=quote*1.15
     if parkPlaceCorr=="Street":
-        quote=quote*1.12
+        quote=quote*1.09
     if parkPlaceCorr=="Driveway":
-        quote=quote*1.08
+        quote=quote*1.05
     if damage5years==1:
         quote=quote*1.2  
     if inclMBI==1:
