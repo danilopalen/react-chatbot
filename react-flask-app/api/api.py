@@ -9,28 +9,28 @@ db = SQLAlchemy(app)
 def quoteCalculator(userYearDOB,carYear,carForBusiness,parkPlaceCorr,damage5years,inclMBI,nMonth=12):
     quote=473.99
     if userYearDOB>1990:
-        quote=quote*1.1
+        quote=quote*1.08
     if userYearDOB>2000:
-        quote=quote*1.1
+        quote=quote*1.08
     if carYear>2015:
-        quote=quote*1.1
+        quote=quote*1.08
     if carYear>2018:
-        quote=quote*1.1
+        quote=quote*1.08
     if carForBusiness==1:
-        quote=quote*1.2
-    if parkPlaceCorr=="Street":
         quote=quote*1.15
+    if parkPlaceCorr=="Street":
+        quote=quote*1.12
     if parkPlaceCorr=="Driveway":
-        quote=quote*1.1
+        quote=quote*1.08
     if damage5years==1:
-        quote=quote*1.3  
+        quote=quote*1.2  
     if inclMBI==1:
-        quote=quote*1.3  
-    if nMonth=6:
+        quote=quote*1.2  
+    if nMonth==6:
         quote=quote*1.1/2
-    if nMonth=4:
+    if nMonth==4:
         quote=quote*1.15/3
-    if nMonth=1:
+    if nMonth==1:
         quote=quote*1.2/12
         
     return quote, nMonth
