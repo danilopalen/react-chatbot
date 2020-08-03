@@ -9,6 +9,7 @@ function App() {
 
   //const [details, setDetails] = useState([]);
   const [flow, setFlow] = useState([]);
+  const [hasOption, setHasOption] = useState(false);
   /*
   useEffect(() => {
     fetch('/details').then(res => res.json()).then(data => {
@@ -29,14 +30,16 @@ function App() {
         body: JSON.stringify({text : data})
     }).then((result) => {
         result.json().then((resp) => {
-            console.warn("resp", resp)
+            console.log("resp", resp)
         
             resp.output.output.generic.forEach(item => {
                 if (item.text){
                     let msg = { 'message': item.text}
                     newMessage(msg)
+                    setHasOption(false)
                 }
                 if (item.options) {
+                    setHasOption(true)
                     item.options.forEach(option => {
                         let opt = { 'options' : option.label}
                         newOptions(opt);
@@ -56,7 +59,7 @@ function App() {
         <div className="App" >
           <Loader flow = {flow} submit = {submit} />
         </div>
-          <Input submit = {submit} />
+          <Input submit = {submit} hasOption = {hasOption}/>
         </div>
   );
 }

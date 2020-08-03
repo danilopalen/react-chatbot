@@ -11,7 +11,6 @@ class  Input extends React.Component {
     componentDidMount(){
         this.props.submit(this.state.text);
     }
-
     
     render() { 
         return ( 
@@ -19,7 +18,9 @@ class  Input extends React.Component {
                 bottom: '10%', marginLeft: '-12px'}}>
 
                 <input className = 'form-control' type = 'text' name = 'text' placeholder = 'Enter message'
-                onChange = {e => this.setState({text : e.target.value})}></input><br/>
+                onChange = {e => this.setState({text : e.target.value})}
+                disabled = {this.props.hasOption}
+                ></input><br/>
                 
                 <div class="input-group-append">
                     <span class="input-group-text" onClick = {() => {this.props.submit(this.state.text)}}>Send</span>
