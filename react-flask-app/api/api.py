@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 
-def quoteCalculator(userYearDOB,carYear,carForBusiness,parkPlaceCorr,damage5years,MBIincl,nMonth=12):
+def quoteCalculator(userYearDOB,carYear,carForBusiness,parkPlaceCorr,damage5years,inclMBI,nMonth=12):
     quote=473.99
     if userYearDOB>1990:
         quote=quote*1.1
@@ -24,7 +24,7 @@ def quoteCalculator(userYearDOB,carYear,carForBusiness,parkPlaceCorr,damage5year
         quote=quote*1.1
     if damage5years=="Yes":
         quote=quote*1.3  
-    if MBIincl=="True":
+    if inclMBI=="True":
         quote=quote*1.3  
     if nMonth=6:
         quote=quote*1.1/2
