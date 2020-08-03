@@ -5,7 +5,7 @@ class  Input extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            text: '' 
+            text : '',
         }
     }
     componentDidMount(){
@@ -25,16 +25,20 @@ class  Input extends React.Component {
             body: JSON.stringify(data)
         }).then((result) => {
             result.json().then((resp) => {
-                console.warn("resp", resp)
-                let msg = { 'message': resp.response}
-                this.props.newMessage(msg)
-                if ( resp.output.output.generic.length === 2){
-                    resp.output.output.generic[1].options.map(d => {
-                        console.log(d);
-                        let opt = { 'options' : d.label}
-                        return this.props.newOptions(opt);
-                    })
-                }
+                console.log("resp", resp)
+
+                resp.output.output.generic.forEach(item => {
+                    if (item.text){
+                        let msg = { 'message': item.text}
+                        this.props.newMessage(msg)
+                    }
+                    if (item.options) {
+                        item.options.forEach(option => {
+                            let opt = { 'options' : option.label}
+                            return this.props.newOptions(opt);
+                        });
+                    }
+                });
             })
         })
         this.setState({
@@ -44,7 +48,8 @@ class  Input extends React.Component {
     render() { 
         return ( 
             <div className = 'input-group mb-3 container' style = {{position: 'absolute',
-            bottom: '10%'}}>
+                bottom: '10%', marginLeft: '-12px'}}>
+
                 <input className = 'form-control' type = 'text' value = {this.state.text} name = 'text' placeholder = 'Enter message'
                 onChange = {e => this.setState({text : e.target.value})}></input><br/>
                 
@@ -52,7 +57,8 @@ class  Input extends React.Component {
                     <span class="input-group-text" onClick = {() => {this.submit()}}>Send</span>
                 </div>
             </div>
-         );
+        );
+        
     }
 }
  
