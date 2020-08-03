@@ -4,11 +4,11 @@ import Response from './Response.js';
 
 class Loader extends React.Component {
     render() {
-        const {flow, setFlow} = this.props;
+        const {flow, submit} = this.props;
+
         if (flow.length > 0 ){
             return (
-                <>{flow.map(res => <Response res = {res} newMessage = {newMessage => setFlow(prev => [...prev, newMessage])}
-                newOptions = {newOptions => setFlow(prev => [...prev, newOptions])} />)}</>
+                <>{flow.map(res => <Response res = {res} submit = {submit} />)}</>
             );
         }else{
             return (

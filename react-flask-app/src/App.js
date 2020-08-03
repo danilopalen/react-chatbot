@@ -16,14 +16,47 @@ function App() {
     });
   }, []);  
   */
+
+  const submit = (data) => {
+    const url = "/input";
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            "Content-Type" : "application/json",
+            "Accept" : "application/json"
+        },
+        body: JSON.stringify({text : data})
+    }).then((result) => {
+        result.json().then((resp) => {
+            console.warn("resp", resp)
+        
+            resp.output.output.generic.forEach(item => {
+                if (item.text){
+                    let msg = { 'message': item.text}
+                    newMessage(msg)
+                }
+                if (item.options) {
+                    item.options.forEach(option => {
+                        let opt = { 'options' : option.label}
+                        newOptions(opt);
+                    });
+                }
+            });
+        })
+    })
+  }
+
+  const newMessage = newMessage => setFlow(prev => [...prev, newMessage])
+
+  const newOptions = newOptions => setFlow(prev => [...prev, newOptions])
+
     return (
       <div className = "container">
         <div className="App" >
-          <Loader flow = {flow} setFlow = {setFlow}/>
+          <Loader flow = {flow} submit = {submit} />
         </div>
-          <Input newMessage = {newMessage => setFlow(prev => [...prev, newMessage])}
-            newOptions = {newOptions => setFlow(prev => [...prev, newOptions])}
-          />
+          <Input submit = {submit} />
         </div>
   );
 }
